@@ -19,6 +19,7 @@
 #include <Parsers/ParserProjectionSelectQuery.h>
 #include <Parsers/ParserSelectWithUnionQuery.h>
 #include <Parsers/ParserSetQuery.h>
+#include <Parsers/ParserRefreshStrategy.h>
 #include <Common/typeid_cast.h>
 #include <Parsers/ASTColumnDeclaration.h>
 
@@ -1362,6 +1363,7 @@ bool ParserCreateViewQuery::parseImpl(Pos & pos, ASTPtr & node, Expected & expec
     ASTPtr as_database;
     ASTPtr as_table;
     ASTPtr select;
+    ASTPtr refresh_strategy;
 
     String cluster_str;
     bool attach = false;
@@ -1405,6 +1407,15 @@ bool ParserCreateViewQuery::parseImpl(Pos & pos, ASTPtr & node, Expected & expec
     if (ParserKeyword{"ON"}.ignore(pos, expected))
     {
         if (!ASTQueryWithOnCluster::parse(pos, cluster_str, expected))
+            return false;
+    }
+
+    if (ParserKeyword{"REFRESH"}.ignore(pos, expected))
+    {
+        // REFRESH only with materialized views
+        if (!is_materialized_view)
+            return false;
+        if (!ParserRefreshStrategy{}.parse(pos, refresh_strategy, expected))
             return false;
     }
 
@@ -1499,6 +1510,8 @@ bool ParserCreateViewQuery::parseImpl(Pos & pos, ASTPtr & node, Expected & expec
 
     query->set(query->columns_list, columns_list);
     query->set(query->storage, storage);
+    if (refresh_strategy)
+        query->set(query->refresh_strategy, refresh_strategy);
     if (comment)
         query->set(query->comment, comment);
 
@@ -1507,7 +1520,6 @@ bool ParserCreateViewQuery::parseImpl(Pos & pos, ASTPtr & node, Expected & expec
     query->set(query->select, select);
 
     return true;
-
 }
 
 bool ParserCreateNamedCollectionQuery::parseImpl(Pos & pos, ASTPtr & node, Expected & expected)

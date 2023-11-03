@@ -429,15 +429,15 @@ class BuildResult:
 
     @staticmethod
     def read_json(directory: Path, build_name: str) -> "BuildResult":
-        path = directory / BuildResult.get_report_name(build_name)
-        try:
-            with open(path, "r", encoding="utf-8") as pf:
-                data = json.load(pf)  # type: dict
-        except FileNotFoundError:
-            logger.warning(
-                "File %s for build named '%s' is not found", path, build_name
+        report_files = list(directory.glob(f"*{build_name}.json"))
+        if not report_files or len(report_files) != 1:
+            print(
+                f"Error: No report for [{build_name}] found in [{directory}], files: [{report_files}]"
             )
             return BuildResult.missing_result(build_name)
+        path = directory / report_files[0]
+        with open(path, "r", encoding="utf-8") as pf:
+            data = json.load(pf)  # type: dict
 
         return BuildResult(
             data.get("build_name", build_name),

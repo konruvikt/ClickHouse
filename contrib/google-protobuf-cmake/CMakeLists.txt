@@ -34,10 +34,13 @@ set(libprotobuf_lite_files
   ${protobuf_source_dir}/src/google/protobuf/any_lite.cc
   ${protobuf_source_dir}/src/google/protobuf/arena.cc
   ${protobuf_source_dir}/src/google/protobuf/arenastring.cc
+  ${protobuf_source_dir}/src/google/protobuf/arenaz_sampler.cc
   ${protobuf_source_dir}/src/google/protobuf/extension_set.cc
   ${protobuf_source_dir}/src/google/protobuf/generated_enum_util.cc
+  ${protobuf_source_dir}/src/google/protobuf/generated_message_tctable_lite.cc
   ${protobuf_source_dir}/src/google/protobuf/generated_message_util.cc
   ${protobuf_source_dir}/src/google/protobuf/implicit_weak_message.cc
+  ${protobuf_source_dir}/src/google/protobuf/inlined_string_field.cc
   ${protobuf_source_dir}/src/google/protobuf/io/coded_stream.cc
   ${protobuf_source_dir}/src/google/protobuf/io/io_win32.cc
   ${protobuf_source_dir}/src/google/protobuf/io/strtod.cc
@@ -48,6 +51,7 @@ set(libprotobuf_lite_files
   ${protobuf_source_dir}/src/google/protobuf/message_lite.cc
   ${protobuf_source_dir}/src/google/protobuf/parse_context.cc
   ${protobuf_source_dir}/src/google/protobuf/repeated_field.cc
+  ${protobuf_source_dir}/src/google/protobuf/repeated_ptr_field.cc
   ${protobuf_source_dir}/src/google/protobuf/stubs/bytestream.cc
   ${protobuf_source_dir}/src/google/protobuf/stubs/common.cc
   ${protobuf_source_dir}/src/google/protobuf/stubs/int128.cc
@@ -86,13 +90,13 @@ set(libprotobuf_files
   ${protobuf_source_dir}/src/google/protobuf/field_mask.pb.cc
   ${protobuf_source_dir}/src/google/protobuf/generated_message_bases.cc
   ${protobuf_source_dir}/src/google/protobuf/generated_message_reflection.cc
+  ${protobuf_source_dir}/src/google/protobuf/generated_message_tctable_full.cc
   ${protobuf_source_dir}/src/google/protobuf/io/gzip_stream.cc
   ${protobuf_source_dir}/src/google/protobuf/io/printer.cc
   ${protobuf_source_dir}/src/google/protobuf/io/tokenizer.cc
   ${protobuf_source_dir}/src/google/protobuf/map_field.cc
   ${protobuf_source_dir}/src/google/protobuf/message.cc
   ${protobuf_source_dir}/src/google/protobuf/reflection_ops.cc
-  ${protobuf_source_dir}/src/google/protobuf/repeated_ptr_field.cc
   ${protobuf_source_dir}/src/google/protobuf/service.cc
   ${protobuf_source_dir}/src/google/protobuf/source_context.pb.cc
   ${protobuf_source_dir}/src/google/protobuf/struct.pb.cc
@@ -116,7 +120,6 @@ set(libprotobuf_files
   ${protobuf_source_dir}/src/google/protobuf/util/internal/protostream_objectsource.cc
   ${protobuf_source_dir}/src/google/protobuf/util/internal/protostream_objectwriter.cc
   ${protobuf_source_dir}/src/google/protobuf/util/internal/type_info.cc
-  ${protobuf_source_dir}/src/google/protobuf/util/internal/type_info_test_helper.cc
   ${protobuf_source_dir}/src/google/protobuf/util/internal/utility.cc
   ${protobuf_source_dir}/src/google/protobuf/util/json_util.cc
   ${protobuf_source_dir}/src/google/protobuf/util/message_differencer.cc

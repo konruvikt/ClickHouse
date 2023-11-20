@@ -150,7 +150,10 @@ def main():
             DOCS_NAME,
             pr_info,
         )
-        sys.exit(1)
+        if CAN_BE_TESTED_LABEL in pr_info.labels:
+            sys.exit(0)
+        else:
+            sys.exit(1)
 
     if description_error:
         print(
